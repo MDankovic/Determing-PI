@@ -8,11 +8,6 @@ import java.awt.Graphics;
 import java.awt.Label;
 import java.util.Random;
 
-
-/*
- * Canvas - predstavlja praznu pravougaonu povrs na ekranu po kojoj se moze crtati.
- * Za crtanje je neophodno redefinisati metodu paint. 
- */
 @SuppressWarnings("serial")
 public class ActiveCanvas extends Canvas implements Runnable {
 	
@@ -47,35 +42,6 @@ public class ActiveCanvas extends Canvas implements Runnable {
 		sleepTime = speed;
 	}
 	
-	/*
-	 * Crtanje se obavlja u posebnoj niti. 
-	 * Svaki put kada se pozove metod paint 
-	 * prekine se prethodno iscrtavanje, 
-	 * a zatim se kreira nova nit, 
-	 * ciji je zadatak da iscrta izabrani oblik.
-	 * 
-	 * Zasto bismo pravili novu nit i iscrtavanje obavili u njenoj run metodi 
-	 * umesto da iscrtavanje direktno vrsimo u paint metodi?
-	 * 
-	 * Kood metode paint izvrsava AWT nit (Event dispatch tread). 
-	 * Njen zadatak je i da obradjuje interakciju korisnika sa GUI-jem. 
-	 * U sustini, posao ove niti je da u petlji proverava red dogadjaja (event queue), 
-	 * dohvata i obradjuje jedan po jedan dogadjaj (MouseEvent, ActionEvent, repaint zahtev itd.) 
-	 * pozivom odgovarajuce metode odgovarajuceg osluskivaca dogadjaja.
-	 * 
-	 * Posto zelimo da iscrtavanje traje neko vreme 
-	 * (da bismo golim okom videli sam proces crtanja) 
-	 * crtanje se obavlja na sledeci nacin u steps koraka:
-	 * - u svakom koraku se iscrta jedna linija, deo celog oblika
-	 * - zatim se nit uspava na sleepTime period
-	 * 
-	 * Ukoliko bi ovaj posao obavljala AWT nit 
-	 * onda bi GUI bio zamrznut za vreme crtanja, 
-	 * tj. korisnik ne bi mogao da interaguje sa GUI-jem
-	 * (da bira menije, klikce dugmice, unosi tekst u tekstualna polja itd.).
-	 * 
-	 * CanvasFail.java demonstrira crtanje izvrseno od strane AWT niti.
-	 */
 	@Override
 	public void paint(Graphics g) {
 		
