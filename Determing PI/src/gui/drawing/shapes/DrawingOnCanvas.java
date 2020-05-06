@@ -51,22 +51,16 @@ public class DrawingOnCanvas extends Frame {
 		helpDialog.add(taHelp);
 		helpDialog.pack();
 		
-		/*
-		 * Menu - predstavlja padajuce menije koji mogu sadrzati druge menije. 
-		 * Meniji se dodaju u traku menija. Menu klasa je izvedena iz klase MenuItem.
-		 * MenuItem - predstavlja pojedinacne stavke menija.
-		 */
 		Menu speedMenu = new Menu("Speed");		
 		MenuItem speedSlow = new MenuItem("Slow");
 		MenuItem speedMedium = new MenuItem("Medium");
 		MenuItem speedFast = new MenuItem("Fast");
 		
-		// Dodavanje pojedinacnih stavki menija u padajuci meni. 
 		speedMenu.add(speedSlow);
 		speedMenu.add(speedMedium);
 		speedMenu.add(speedFast);
 		
-		// Moguce je osluskivati i obradjivati dogadjaje menija.
+		// Set speed of generating points
 		speedSlow.addActionListener((ae) -> { 
 			scene.setSpeed(5);
 		});
@@ -116,8 +110,6 @@ public class DrawingOnCanvas extends Frame {
 		
 		Panel buttonPanel = new Panel();
 		
-		// List - lista opcija iz koje je moguce odabrati jednu ili vise opcija.
-		// Ne mesati sa java.util.List!
 		List chooseColor = new List(2);
 		chooseColor.add("Black");
 		chooseColor.add("Red");
@@ -128,12 +120,10 @@ public class DrawingOnCanvas extends Frame {
 		choosePointColor.add("Red");
 		choosePointColor.add("Green");
 		
-		// Izbor opcije programskim putem. Podrazumevano je obelezena prva opcija.
+		// Set default options
 		chooseColor.select(0);
 		choosePointColor.select(0);
 		
-		// Osluskivac dogadjaja liste. 
-		// Dogadjaj se generise interakcijom korisnika sa komponentom (izborom opcije).
 		chooseColor.addItemListener((ie) -> {
 			String item = chooseColor.getSelectedItem();
 			if("Black".equals(item))
